@@ -17,81 +17,20 @@
 
     <div class="container">
         <div class="jumbotron row">
-            <div class="col-md-4">
+            <div class="col-md-4" style="text-align:center">
+                <label id="userName"></label>
                 <img width="300" height="400" id="headicon" />
             </div>
             <div class="col-md-4">
                 <button class="btn btn-info" id="startLottery">Start Lottery</button>
                 <button class="btn btn-danger" id="stopLottery" >Stop Lottery</button>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style="text-align:center">
+                <label id="giftSender"></label>
                 <img id="lotteryImg" width="300" height="400" />
             </div>
         </div>
     </div>
 </body>
+<script src="lottery.js" type="text/javascript" charset="utf-8"></script>
 
-<script type="text/javascript" charset="utf-8">
-    var data;
-    var pre_user = 0;    
-    var timer;
-    var peopleCount;
-
-    _initData();
-    showHeadIcon();
-    peopleCount = data.length - 1;
-    function _initData() {
-        data = [
-            {id:1, name:'Levi', headicon: 'headicon/levi.jpg', gift:'gifts/levi.jpg'},
-            {id:2, name:'水鬼', headicon: 'headicon/tsl.jpg', gift:'gifts/tsl.jpg'},
-            {id:3, name:'Gucci', headicon: 'headicon/gucci.jpg', gift:'gifts/gucci.jpg'},
-            {id:4, name:'老二', headicon: 'headicon/jeff.jpg', gift:'gifts/jeff.jpg'},
-            {id:5, name:'喬揚', headicon: 'headicon/joy.jpg', gift:'gifts/joy.jpg'},
-            {id:6, name:'老翁', headicon: 'headicon/kai.jpg', gift:'gifts/kai.jpg'},
-            {id:7, name:'小翊', headicon: 'headicon/yi.jpg', gift:'gifts/yi.jpg'},
-            {id:8, name:'黑妹', headicon: 'headicon/yong.jpg', gift:'gifts/yong.jpg'}
-        ];
-    }
-
-    function showHeadIcon() {
-        data.forEach(function (element) {
-            newImg = '<img href="#" class="headicon" style="margin-left:10px" width="100" height="100" src="'+element.headicon+'"/>';
-            $('#headiconRow').append(newImg);
-        });
-    }
-    
-    function changeImg() {
-        user = pre_user;
-        while(pre_user == user) {
-            user = Math.round(Math.random() * peopleCount);
-        }
-        $('#lotteryImg').attr('src', data[user].gift) ;   
-        pre_user = user;
-    }
-
-    $('#startLottery').on('click', function() {
-        timer = setInterval(changeImg, 100);  
-    });
-
-    function last() {
-        ran = Math.random() * 5;
-
-        for(i=0;i<ran;i++) {
-            t = i * 200; 
-            setTimeout(function() {
-                changeImg();        
-            }, t);
-        }
-    }
-    $('.headicon').on('click', function() {
-        url = $(this).attr('src');
-        $('#headicon').attr('src', url);
-        $(this).css('border', 'yellow solid 5px');
-    })
-
-    $('#stopLottery').on('click', function() {
-        clearInterval(timer);
-        last();
-
-    });
-</script>
