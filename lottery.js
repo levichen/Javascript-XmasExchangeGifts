@@ -1,5 +1,6 @@
 var data;
 var preImg = 0;    
+var img;
 var timer;
 var peopleCount;
 var nowUser;
@@ -8,16 +9,17 @@ var userSelectedCounter=0;
 _initData();
 showHeadIcon();
 peopleCount = data.length - 1;
+
 function _initData() {
     data = [
-    {id:0, name:'Levi', headicon: 'headicon/levi.jpg', gift:'gifts/levi.jpg', selected:false},
-    {id:1, name:'水鬼', headicon: 'headicon/tsl.jpg', gift:'gifts/tsl.jpg', selected:false},
-    {id:2, name:'Gucci', headicon: 'headicon/gucci.jpg', gift:'gifts/gucci.jpg', selected:false},
-    {id:3, name:'老二', headicon: 'headicon/jeff.jpg', gift:'gifts/jeff.jpg', selected:false},
-    {id:4, name:'喬揚', headicon: 'headicon/joy.jpg', gift:'gifts/joy.jpg', selected:false},
-    {id:5, name:'老翁', headicon: 'headicon/kai.jpg', gift:'gifts/kai.jpg', selected:false},
-    {id:6, name:'小翊', headicon: 'headicon/yi.jpg', gift:'gifts/yi.jpg', selected:false},
-    {id:7, name:'黑妹', headicon: 'headicon/yong.jpg', gift:'gifts/yong.jpg', selected:false}
+        {id:0, name:'Levi', headicon: 'headicon/levi.jpg', gift:'gifts/levi.jpg', selected:false},
+        {id:1, name:'水鬼', headicon: 'headicon/tsl.jpg', gift:'gifts/tsl.jpg', selected:false},
+        {id:2, name:'Gucci', headicon: 'headicon/gucci.jpg', gift:'gifts/gucci.jpg', selected:false},
+        {id:3, name:'老二', headicon: 'headicon/jeff.jpg', gift:'gifts/jeff.jpg', selected:false},
+        {id:4, name:'喬揚', headicon: 'headicon/joy.jpg', gift:'gifts/joy.jpg', selected:false},
+        {id:5, name:'老翁', headicon: 'headicon/kai.jpg', gift:'gifts/kai.jpg', selected:false},
+        {id:6, name:'小翊', headicon: 'headicon/yi.jpg', gift:'gifts/yi.jpg', selected:false},
+        {id:7, name:'黑妹', headicon: 'headicon/yong.jpg', gift:'gifts/yong.jpg', selected:false}
     ];
 }
 
@@ -28,9 +30,31 @@ function showHeadIcon() {
     });
 }
 
+function ifPreCurrentImgSame() {
+   return preImg == img; 
+}
+
+function ifTheImgIsSelected() {
+    return data[img].selected;
+}
+
+function ifTheCurrentImgIsBelongNowUser() {
+    return nowUser == img;
+}
+
+function parallel() {
+    if(nowUser == 1 && img == 2) {
+        return true;
+    }
+    else if(nowUser == 2 && img == 1) {
+        return true;
+    }
+    return false;
+}
+
 function changeImg() {
     img = preImg;
-    while(preImg == img || data[img].selected || nowUser == img) {
+    while(ifPreCurrentImgSame() || ifTheImgIsSelected() || ifTheCurrentImgIsBelongNowUser()) {
         img = Math.round(Math.random() * peopleCount);
     }
     $('#lotteryImg').attr('src', data[img].gift) ;   
@@ -43,20 +67,41 @@ $('#startLottery').on('click', function() {
 });
 
 $('.headicon').on('click', function() {
-    url = $(this).attr('src');
-    $('#headicon').attr('src', url);
-    $(this).css('border', 'yellow solid 5px');
-    nowUser = $(this).data('user');
+    showHeadiconEffect(this);
 
-    $('#userName').text($(this).data('username'));
     if(userSelectedCounter==peopleCount) {
         data.forEach(function(element) {
-            if(element.selected == false) {
-                $('#lotteryImg').attr('src', element.gift) ;   
+            if(ifGiftIsSelected(element)) {
+                setGiftLabel(element);
             }
         }); 
     }
-})
+    else {
+        resetGiftLabel();
+    }
+});
+
+function showHeadiconEffect(obj) {
+    url = $(obj).attr('src');
+    $('#headicon').attr('src', url);
+    $(obj).css('border', 'yellow solid 5px');
+    nowUser = $(obj).data('user');
+    $('#userName').text($(obj).data('username'));
+}
+
+function setGiftLabel(element) {
+    $('#lotteryImg').attr('src', element.gift) ;   
+    $('#giftSender').text(element.name);
+}
+
+function ifGiftIsSelected(element) {
+   return element.selected == false; 
+}
+
+function resetGiftLabel() {
+    $('#lotteryImg').attr('src', '') ;   
+    $('#giftSender').text('');
+}
 
 $('#stopLottery').on('click', function() {
     clearInterval(timer);
