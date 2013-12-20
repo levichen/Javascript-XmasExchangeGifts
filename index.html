@@ -1,17 +1,37 @@
-<script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">  
+    <title>2013聖誕抽獎</title>
 
-<style type="text/css" media="all">
-#headiconRow {
-    margin-left:40px;
-    margin-top:30px;
-} 
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
 
-.jumbotron {
-    margin-top:50px;
-}
-</style>
+    <style type="text/css" media="all">
+        body, html {
+            width: 100%;
+        }
+
+        #headiconRow {
+            margin-left:40px;
+            margin-top:30px;
+        } 
+
+        .jumbotron {
+            margin-top:50px;
+        }
+
+        body .modal .modal-body {
+            padding-left: 5px;
+        }
+
+        /*body .modal .modal-dialog {
+            width: 1000px;
+            height: 500px;
+        }*/
+    </style>
+</head>
 <body>
     <div class="row" id="headiconRow"></div>
 
@@ -24,6 +44,7 @@
             <div class="col-md-4">
                 <button class="btn btn-info" id="startLottery">Start Lottery</button>
                 <button class="btn btn-danger" id="stopLottery" >Stop Lottery</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#resultContainer" id="showResult" >Exchange Result</button>
             </div>
             <div class="col-md-4" style="text-align:center">
                 <label id="giftSender"></label>
@@ -31,6 +52,21 @@
             </div>
         </div>
     </div>
-</body>
-<script src="lottery.js" type="text/javascript" charset="utf-8"></script>
 
+    <div class="modal fade" id="resultContainer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Exchange Result</h4>
+                </div>
+                <div class="modal-body" width="1000px">
+                    <canvas id="exchange-result-container"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="exchange_graph.js" type="text/javascript" charset="utf-8"></script>
+<script src="lottery.js" type="text/javascript" charset="utf-8"></script>
+</html>

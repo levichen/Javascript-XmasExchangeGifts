@@ -5,10 +5,7 @@ var timer;
 var peopleCount;
 var nowUser;
 var userSelectedCounter=0;
-
-_initData();
-showHeadIcon();
-peopleCount = data.length - 1;
+var exchangeGraph;
 
 function _initData() {
     data = [
@@ -108,3 +105,24 @@ $('#stopLottery').on('click', function() {
     data[img].selected = true;
     userSelectedCounter++;
 });
+
+(function() {
+    _initData();
+    showHeadIcon();
+    peopleCount = data.length - 1;
+
+    $('body .modal .modal-dialog').height(window.innerHeight - 100);
+    $('body .modal .modal-dialog').width(window.innerWidth);
+
+    exchangeGraph = new ExchangeGraph(
+        'exchange-result-container', 
+        $('#resultContainer .modal-dialog').innerWidth(), 
+        $('#resultContainer .modal-dialog').innerHeight()
+    );
+    exchangeGraph.initView(data);
+
+    // example
+    var result = { 0: 2, 1: 1 };
+    exchangeGraph.drawLine(result);
+
+})();
