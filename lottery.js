@@ -52,31 +52,13 @@ function parallel() {
 function changeImg() {
     img = preImg;
     while(ifPreCurrentImgSame() || ifTheImgIsSelected() || ifTheCurrentImgIsBelongNowUser()) {
+        if(userSelectedCounter == peopleCount -1 && !ifTheCurrentImgIsBelongNowUser()) break;
         img = Math.round(Math.random() * peopleCount);
     }
     $('#lotteryImg').attr('src', data[img].gift) ;   
     $('#giftSender').text(data[img].name);
     preImg = img;
 }
-
-$('#startLottery').on('click', function() {
-    timer = setInterval(changeImg, 100);  
-});
-
-$('.headicon').on('click', function() {
-    showHeadiconEffect(this);
-
-    if(userSelectedCounter==peopleCount) {
-        data.forEach(function(element) {
-            if(ifGiftIsSelected(element)) {
-                setGiftLabel(element);
-            }
-        }); 
-    }
-    else {
-        resetGiftLabel();
-    }
-});
 
 function showHeadiconEffect(obj) {
     url = $(obj).attr('src');
@@ -89,6 +71,8 @@ function showHeadiconEffect(obj) {
 function setGiftLabel(element) {
     $('#lotteryImg').attr('src', element.gift) ;   
     $('#giftSender').text(element.name);
+    img = element.id;
+    linkLine();
 }
 
 function ifGiftIsSelected(element) {
@@ -100,10 +84,18 @@ function resetGiftLabel() {
     $('#giftSender').text('');
 }
 
+function linkLine() {
+    var result = {};
+    result[nowUser] = img
+    exchangeGraph.drawLine(result);
+}
+
 $('#stopLottery').on('click', function() {
     clearInterval(timer);
     data[img].selected = true;
     userSelectedCounter++;
+
+    linkLine();
 });
 
 (function() {
@@ -121,8 +113,22 @@ $('#stopLottery').on('click', function() {
     );
     exchangeGraph.initView(data);
 
-    // example
-    var result = { 0: 2, 1: 1 };
-    exchangeGraph.drawLine(result);
+    $('#startLottery').on('click', function() {
+        timer = setInterval(changeImg, 100);  
+    });
 
+    $('.headicon').on('click', function() {
+        showHeadiconEffect(this);
+
+        if(userSelectedCounter==peopleCount) {
+            data.forEach(function(element) {
+                if(ifGiftIsSelected(element)) {
+                    setGiftLabel(element);
+                }
+            }); 
+        }
+        else {
+            resetGiftLabel();
+        }
+    });
 })();
