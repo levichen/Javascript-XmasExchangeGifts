@@ -9,7 +9,7 @@ function ExchangeGraph(containerName, width, height) {
 
 	this.itemMargin 		= 10;
 	this.itemWidth 			= 0;
-	this.itemHeight 		= 150;
+	this.itemHeight 		= 130;
 	this.giftPicXPostion 	= height - this.itemHeight;
 };
 

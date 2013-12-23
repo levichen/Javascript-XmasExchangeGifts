@@ -109,8 +109,8 @@ $('#stopLottery').on('click', function() {
 
 (function() {
 
-    $('body .modal .modal-dialog').height(window.innerHeight - 100);
-    $('body .modal .modal-dialog').width(window.innerWidth);
+    $('body .modal .modal-dialog').height(window.innerHeight - 150);
+    $('body .modal .modal-dialog').width(window.innerWidth - 15);
 
     exchangeGraph = new ExchangeGraph(
         'exchange-result-container', 
