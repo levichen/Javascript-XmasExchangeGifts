@@ -20,13 +20,18 @@ function _initData() {
         {id:4, name:'喬揚', headicon: 'headicon/joy.jpg', gift:'gifts/joy.jpg', selected:false},
         {id:5, name:'老翁', headicon: 'headicon/kai.jpg', gift:'gifts/kai.jpg', selected:false},
         {id:6, name:'小翊', headicon: 'headicon/yi.jpg', gift:'gifts/yi.jpg', selected:false},
-        {id:7, name:'黑妹', headicon: 'headicon/yong.jpg', gift:'gifts/yong.jpg', selected:false}
+        {id:7, name:'黑妹', headicon: 'headicon/yong.jpg', gift:'gifts/yong.jpg', selected:false},
+        {id:8, name:'毛豆', headicon: 'headicon/book.jpg', gift:'gifts/book.jpg', selected:false},
+        {id:9, name:'小麥', headicon: 'headicon/mai.jpg', gift:'gifts/mai.jpg', selected:false},
+        {id:10, name:'一條線', headicon: 'headicon/yingcyun.jpg', gift:'gifts/yingcyun.jpg', selected:false},
+        {id:11, name:'Hero', headicon: 'headicon/hero.jpg', gift:'gifts/hero.jpg', selected:false},
+        {id:11, name:'小華', headicon: 'headicon/china.jpg', gift:'gifts/china.jpg', selected:false}
     ];
 }
 
 function showHeadIcon() {
     data.forEach(function (element) {
-        newImg = '<img data-username="'+element.name+'" data-user="'+element.id+'"href="#" class="headicon" style="margin-left:10px" width="100" height="100" src="'+element.headicon+'"/>';
+        newImg = '<img data-username="'+element.name+'" data-user="'+element.id+'"href="#" class="headicon" style="margin-left:10px" width="80" height="80" src="'+element.headicon+'"/>';
         $('#headiconRow').append(newImg);
     });
 }
@@ -56,7 +61,7 @@ function parallel() {
 function changeImg() {
     img = preImg;
     while(ifPreCurrentImgSame() || ifTheImgIsSelected() || ifTheCurrentImgIsBelongNowUser()) {
-        if(userSelectedCounter == peopleCount -1 && !ifTheCurrentImgIsBelongNowUser()) break;
+        if(userSelectedCounter == peopleCount -1 && !ifTheCurrentImgIsBelongNowUser() && !ifTheImgIsSelected()) break;
         img = Math.round(Math.random() * peopleCount);
     }
     $('#lotteryImg').attr('src', data[img].gift) ;   
