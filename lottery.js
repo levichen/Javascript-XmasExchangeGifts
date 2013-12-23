@@ -7,6 +7,10 @@ var nowUser;
 var userSelectedCounter=0;
 var exchangeGraph;
 
+_initData();
+showHeadIcon();
+peopleCount = data.length - 1;
+
 function _initData() {
     data = [
         {id:0, name:'Levi', headicon: 'headicon/levi.jpg', gift:'gifts/levi.jpg', selected:false},
@@ -99,9 +103,6 @@ $('#stopLottery').on('click', function() {
 });
 
 (function() {
-    _initData();
-    showHeadIcon();
-    peopleCount = data.length - 1;
 
     $('body .modal .modal-dialog').height(window.innerHeight - 100);
     $('body .modal .modal-dialog').width(window.innerWidth);
